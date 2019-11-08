@@ -50,7 +50,6 @@ extension ShoppingMainController: UICollectionViewDelegate {
         vc.item = items[indexPath.item]
         self.selectedIndexPath = indexPath
         vc.transitioningDelegate = self
-        vc.modalPresentationStyle = .custom
 
         self.present(vc, animated: true, completion: nil)
     }
@@ -71,13 +70,12 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
                                         width: transition.originFrame.size.width - 40,
                                         height: transition.originFrame.size.height - 40)
         
-        transition.presenting = true
+        transition.isPresenting = true
         return transition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        transition.presenting = false
+        transition.isPresenting = false
         return transition
     }
 }
