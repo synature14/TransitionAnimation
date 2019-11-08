@@ -10,11 +10,18 @@ import UIKit
 
 class RootViewController: UIViewController {
 
+    @IBOutlet weak var containerView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
-
+    @IBAction func firstTabTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func secondTabTapped(_ sender: Any) {
+    }
 }
 

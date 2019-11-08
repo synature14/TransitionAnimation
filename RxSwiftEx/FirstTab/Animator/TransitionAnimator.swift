@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let duration = 0.8
     var isPresenting: Bool = true

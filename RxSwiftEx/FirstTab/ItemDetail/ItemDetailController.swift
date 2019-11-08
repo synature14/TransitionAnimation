@@ -27,7 +27,7 @@ class ItemDetailController: UIViewController {
     }
 
     @IBAction func dismissSelf(_ sender: Any) {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
     
     static func create() -> ItemDetailController {
