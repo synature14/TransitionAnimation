@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+class PresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let duration = 0.8
     var isPresenting: Bool = true

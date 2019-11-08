@@ -18,7 +18,9 @@ class ShoppingMainController: UIViewController {
     let viewModel = ShoppingMainViewModel()
     
     var selectedIndexPath: IndexPath?
-    let transition = PopAnimator()
+    
+    let presentAnimator = PresentAnimator()
+    let dismissAnimator = DismissAnimator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,18 +66,20 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
             let selectedCellSuperview = selectedCell.superview else {
                 return nil
         }
-        transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
-        transition.originFrame = CGRect(x: transition.originFrame.origin.x + 20,
-                                        y: transition.originFrame.origin.y + 20,
-                                        width: transition.originFrame.size.width - 40,
-                                        height: transition.originFrame.size.height - 40)
+        presentAnimator.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
+        presentAnimator.originFrame = CGRect(x: presentAnimator.originFrame.origin.x + 20,
+                                        y: presentAnimator.originFrame.origin.y + 20,
+                                        width: presentAnimator.originFrame.size.width - 40,
+                                        height: presentAnimator.originFrame.size.height - 40)
         
-        transition.isPresenting = true
-        return transition
+        presentAnimator.isPresenting = true
+        return presentAnimator
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.isPresenting = false
-        return transition
+        if let _ = dismissed as? ItemDetailController {
+            return dismissAnimator
+        }
+        return nil
     }
 }
