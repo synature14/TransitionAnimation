@@ -9,10 +9,10 @@
 import UIKit
 
 class ItemDetailController: UIViewController {
+    var item: PastaModel!
     
     @IBOutlet weak var collectionView: UICollectionView!
-    var item: PastaModel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
