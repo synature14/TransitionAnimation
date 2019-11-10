@@ -45,7 +45,7 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             y: initialFrame.midY)
           fromView.clipsToBounds = true
         }
-        
+
         fromView.layer.cornerRadius = isPresenting ? 25.0 : 0.0
         fromView.layer.masksToBounds = true
         

@@ -51,6 +51,7 @@ extension ShoppingMainController: UICollectionViewDelegate {
         let vc = ItemDetailController.create()
         vc.item = items[indexPath.item]
         self.selectedIndexPath = indexPath
+        vc.modalPresentationStyle = .fullScreen
         vc.transitioningDelegate = self
 
         self.present(vc, animated: true, completion: nil)
@@ -78,6 +79,7 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if let _ = dismissed as? ItemDetailController {
+            transition.isPresenting = false
             return transition
         }
         return nil
