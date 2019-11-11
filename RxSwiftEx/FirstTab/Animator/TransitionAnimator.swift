@@ -12,55 +12,51 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let duration = 0.8
     var isPresenting: Bool = true
-    var originFrame = CGRect.zero
+    var originFrmae: CGRect = .zero
+    var image: UIImage?
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView
-        guard let toView = transitionContext.view(forKey: .to),
-            let fromView = isPresenting ? toView : transitionContext.view(forKey: .from) else {
-            return
-        }
-        
-        let initialFrame = isPresenting ? originFrame : fromView.frame
-        let finalFrame = isPresenting ? fromView.frame : originFrame
-        
-        let xScaleFactor = isPresenting ?
-          initialFrame.width / finalFrame.width :
-          finalFrame.width / initialFrame.width
-        
-        let yScaleFactor = isPresenting ?
-          initialFrame.height / finalFrame.height :
-          finalFrame.height / initialFrame.height
-        
-        let scaleTransform = CGAffineTransform(scaleX: xScaleFactor, y: yScaleFactor)
-        
         if isPresenting {
-          fromView.transform = scaleTransform
-          fromView.center = CGPoint(
-            x: initialFrame.midX,
-            y: initialFrame.midY)
-          fromView.clipsToBounds = true
+            return animatePresentMode(using: transitionContext)
+        } else {
+            return animateDismissMode(using: transitionContext)
         }
+    }
+}
 
-        fromView.layer.cornerRadius = isPresenting ? 25.0 : 0.0
-        fromView.layer.masksToBounds = true
+private extension TransitionAnimator {
+    func animatePresentMode(using transitionContext: UIViewControllerContextTransitioning) {
+        guard
+            let fromVC = transitionContext.viewController(forKey: .from),
+            let toVC = transitionContext.viewController(forKey: .to) as? ItemDetailController else {
+                return
+        }
         
-        containerView.addSubview(toView)
-        containerView.bringSubviewToFront(fromView)
-        toView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+        let imageView = UIImageView(image: image)
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFit
+        let containerView = transitionContext.containerView
+        containerView.backgroundColor = .white
+        containerView.addSubview(toVC.view)
+        containerView.addSubview(imageView)
+        imageView.frame = originFrmae
+        toVC.view.alpha = 0
+        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         
         UIView.animate(withDuration: 0.5, animations: {
-            fromView.transform = self.isPresenting ? .identity : scaleTransform
-            fromView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
-            fromView.layer.cornerRadius = !self.isPresenting ? 25.0 : 0.0
-            
-        }, completion: { _ in
+            imageView.frame = toVC.itemImageView.frame
+        }) { _ in
+            toVC.view.alpha = 1
+            imageView.removeFromSuperview()
             transitionContext.completeTransition(true)
-        })
-        
+        }
+    }
+    
+    func animateDismissMode(using transitionContext: UIViewControllerContextTransitioning) {
+        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     }
 }

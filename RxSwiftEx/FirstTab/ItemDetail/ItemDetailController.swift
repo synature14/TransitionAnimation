@@ -11,19 +11,10 @@ import UIKit
 class ItemDetailController: UIViewController {
     var item: PastaModel!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var itemImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.contentInset.bottom = 40
-        
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width,
-                                              height: UIScreen.main.bounds.height)
-            layout.minimumLineSpacing = 0
-            layout.minimumInteritemSpacing = 0
-        }
     }
 
     @IBAction func dismissSelf(_ sender: Any) {
@@ -35,19 +26,3 @@ class ItemDetailController: UIViewController {
         return sb.instantiateViewController(identifier: "ItemDetailController") as! ItemDetailController
     }
 }
-
-extension ItemDetailController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemDetailCell", for: indexPath) as? ItemDetailCell {
-            cell.setUI(item: item)
-            return cell
-        }
-        
-        return UICollectionViewCell()
-    }
-}
-

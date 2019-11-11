@@ -20,7 +20,6 @@ class ShoppingMainController: UIViewController {
     var selectedIndexPath: IndexPath?
     
     let transition = TransitionAnimator()
-//    let dismissAnimator = DismissAnimator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,18 +61,15 @@ extension ShoppingMainController: UICollectionViewDelegate {
 // MARK: - UIViewControllerTransitioningDelegate
 extension ShoppingMainController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let `selectedIndexPath` = selectedIndexPath,
-            let selectedCell = collectionView.cellForItem(at: selectedIndexPath) as? ItemCell,
-            let selectedCellSuperview = selectedCell.superview else {
-                return nil
+        guard
+            let selectedIndexPath = selectedIndexPath,
+            let cell = collectionView.cellForItem(at: selectedIndexPath) as? ItemCell else {
+            return nil
         }
-        transition.originFrame = selectedCellSuperview.convert(selectedCell.frame, to: nil)
-        transition.originFrame = CGRect(x: transition.originFrame.origin.x + 20,
-                                        y: transition.originFrame.origin.y + 20,
-                                        width: transition.originFrame.size.width - 40,
-                                        height: transition.originFrame.size.height - 40)
-        
+        transition.originFrmae = cell.frame
+        transition.image = cell.imageView.image
         transition.isPresenting = true
+        
         return transition
     }
     
@@ -84,4 +80,6 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
         }
         return nil
     }
+    
+    
 }
