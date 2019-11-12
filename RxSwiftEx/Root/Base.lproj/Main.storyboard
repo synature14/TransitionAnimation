@@ -31,6 +31,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WDM-CA-mft">
+                                <rect key="frame" x="0.0" y="88" width="414" height="728"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jto-fU-LhT">
                                 <rect key="frame" x="0.0" y="816" width="414" height="80"/>
                                 <subviews>
@@ -64,20 +68,14 @@
                                     <constraint firstItem="aDk-c3-IEG" firstAttribute="leading" secondItem="Jto-fU-LhT" secondAttribute="leading" id="s8f-fC-hFb"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgn-Pu-7T2">
-                                <rect key="frame" x="0.0" y="88" width="414" height="728"/>
-                                <connections>
-                                    <segue destination="hxv-P4-b6D" kind="embed" id="OPt-bi-Arq"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="bgn-Pu-7T2" firstAttribute="top" secondItem="mst-BV-zmN" secondAttribute="top" id="IL1-2h-FtF"/>
-                            <constraint firstItem="Jto-fU-LhT" firstAttribute="top" secondItem="bgn-Pu-7T2" secondAttribute="bottom" id="Pzj-eC-Zfj"/>
-                            <constraint firstItem="mst-BV-zmN" firstAttribute="trailing" secondItem="bgn-Pu-7T2" secondAttribute="trailing" id="RMX-S7-jbg"/>
-                            <constraint firstItem="bgn-Pu-7T2" firstAttribute="leading" secondItem="mst-BV-zmN" secondAttribute="leading" id="Xmu-9Y-cAx"/>
+                            <constraint firstItem="WDM-CA-mft" firstAttribute="top" secondItem="mst-BV-zmN" secondAttribute="top" id="Shd-9Z-FSG"/>
+                            <constraint firstItem="WDM-CA-mft" firstAttribute="leading" secondItem="mst-BV-zmN" secondAttribute="leading" id="Ujn-Ak-TcM"/>
                             <constraint firstAttribute="bottom" secondItem="Jto-fU-LhT" secondAttribute="bottom" id="ewU-fT-qpw"/>
+                            <constraint firstItem="Jto-fU-LhT" firstAttribute="top" secondItem="WDM-CA-mft" secondAttribute="bottom" id="i8q-Bk-EMU"/>
+                            <constraint firstItem="mst-BV-zmN" firstAttribute="trailing" secondItem="WDM-CA-mft" secondAttribute="trailing" id="oGB-fh-K2N"/>
                             <constraint firstItem="Jto-fU-LhT" firstAttribute="leading" secondItem="mst-BV-zmN" secondAttribute="leading" id="ujg-P4-Rai"/>
                             <constraint firstItem="Jto-fU-LhT" firstAttribute="trailing" secondItem="mst-BV-zmN" secondAttribute="trailing" id="yDm-4f-8ig"/>
                         </constraints>
@@ -85,22 +83,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Pasta" id="f1g-mm-dvM"/>
                     <connections>
-                        <outlet property="containerView" destination="bgn-Pu-7T2" id="qFn-8I-mxC"/>
+                        <outlet property="embedView" destination="WDM-CA-mft" id="zV3-nF-kRQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zPp-0S-0Xj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-578.26086956521749" y="39.508928571428569"/>
-        </scene>
-        <!--ShoppingMainController-->
-        <scene sceneID="Gcd-T3-ywq">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ShoppingMain" referencedIdentifier="ShoppingMainController" id="hxv-P4-b6D" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Gt5-2Z-kVk"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CoP-wj-MZA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-741" y="427"/>
         </scene>
     </scenes>
 </document>

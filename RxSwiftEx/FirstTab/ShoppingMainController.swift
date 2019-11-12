@@ -29,6 +29,11 @@ class ShoppingMainController: UIViewController {
         self.navigationController?.navigationItem.title = "Pasta"
         
     }
+    
+    static func create() -> ShoppingMainController {
+        let sb = UIStoryboard(name: "ShoppingMain", bundle: nil)
+        return sb.instantiateViewController(identifier: "ShoppingMainController") as! ShoppingMainController
+    }
 }
 
 extension ShoppingMainController: UICollectionViewDataSource {
