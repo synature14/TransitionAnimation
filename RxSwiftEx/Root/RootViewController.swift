@@ -23,8 +23,9 @@ class RootViewController: UIViewController {
         firstTab.view.frame = CGRect(x: 0, y: 0,
                                      width: self.view.frame.width,
                                      height: embedView.frame.height)
-        self.embedView.addSubview(firstTab.view)
         firstTab.view.layoutSubviews()
+        firstTab.collectionView.layoutIfNeeded()
+        self.embedView.addSubview(firstTab.view)
     }
     
     override func viewWillAppear(_ animated: Bool) {

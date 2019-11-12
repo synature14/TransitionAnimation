@@ -11,19 +11,39 @@ import UIKit
 class ItemDetailController: UIViewController {
     var item: PastaModel!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var itemImageView: UIImageView!
+    
+    @IBOutlet weak var textContainerView: UIView!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var explainTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.contentInset.bottom = 40
+        itemImageView.image = item.image
+        titleLabel.text = item.title
+        weightLabel.text = item.weight
+        priceLabel.text = item.price
+        explainTextView.text = item.explain
         
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width,
-                                              height: UIScreen.main.bounds.height)
-            layout.minimumLineSpacing = 0
-            layout.minimumInteritemSpacing = 0
-        }
+        textContainerView.transform = CGAffineTransform(translationX: 0, y: textContainerView.frame.height)
+        textContainerView.alpha = 0
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIView.animate(withDuration: 0.2, delay: 0,
+                       options: .curveEaseIn,
+                       animations: {
+                        
+                        self.textContainerView.transform = .identity
+                        self.textContainerView.alpha = 1
+                        
+        })
     }
 
     @IBAction func dismissSelf(_ sender: Any) {
@@ -35,19 +55,3 @@ class ItemDetailController: UIViewController {
         return sb.instantiateViewController(identifier: "ItemDetailController") as! ItemDetailController
     }
 }
-
-extension ItemDetailController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemDetailCell", for: indexPath) as? ItemDetailCell {
-            cell.setUI(item: item)
-            return cell
-        }
-        
-        return UICollectionViewCell()
-    }
-}
-
