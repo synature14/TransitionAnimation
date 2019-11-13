@@ -129,52 +129,83 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="LCw-c5-9Bk">
                                             <size key="itemSize" width="79" height="54"/>
-                                            <size key="headerReferenceSize" width="94" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CartItemCell" id="JpU-Fd-RDs" customClass="CartItemCell" customModule="RxSwiftEx" customModuleProvider="target">
-                                                <rect key="frame" x="94" y="3" width="79" height="54"/>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CartTitleCell" id="KpA-ar-DeE" customClass="CartTitleCell" customModule="RxSwiftEx" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="3" width="75.5" height="54"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ywp-Zh-Z0K">
-                                                    <rect key="frame" x="0.0" y="0.0" width="79" height="54"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="IlE-tU-YNJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="75.5" height="54"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QoV-TC-fdu">
-                                                            <rect key="frame" x="10" y="5" width="59" height="44"/>
-                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1x-Wa-NH2">
+                                                            <rect key="frame" x="18" y="15" width="39.5" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="QoV-TC-fdu" firstAttribute="leading" secondItem="Ywp-Zh-Z0K" secondAttribute="leading" constant="10" id="G0Q-Do-L0x"/>
-                                                        <constraint firstItem="QoV-TC-fdu" firstAttribute="centerX" secondItem="Ywp-Zh-Z0K" secondAttribute="centerX" id="N1G-cV-V3Y"/>
-                                                        <constraint firstItem="QoV-TC-fdu" firstAttribute="top" secondItem="Ywp-Zh-Z0K" secondAttribute="top" constant="5" id="Twv-nq-LRO"/>
-                                                        <constraint firstItem="QoV-TC-fdu" firstAttribute="centerY" secondItem="Ywp-Zh-Z0K" secondAttribute="centerY" id="VyU-Z8-6mU"/>
+                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="top" secondItem="IlE-tU-YNJ" secondAttribute="top" constant="15" id="CF6-dM-5ZS"/>
+                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="leading" secondItem="IlE-tU-YNJ" secondAttribute="leading" constant="18" id="gba-v4-afk"/>
+                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="centerY" secondItem="IlE-tU-YNJ" secondAttribute="centerY" id="qiC-2h-Fhq"/>
+                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="centerX" secondItem="IlE-tU-YNJ" secondAttribute="centerX" id="vPk-dK-yoi"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                            </collectionViewCell>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CartItemCell" id="JpU-Fd-RDs" customClass="CartItemCell" customModule="RxSwiftEx" customModuleProvider="target">
+                                                <rect key="frame" x="75.5" y="0.0" width="70" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ywp-Zh-Z0K">
+                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vnc-is-qSY">
+                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QoV-TC-fdu">
+                                                                    <rect key="frame" x="15" y="10" width="40" height="40"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="40" id="Tem-dg-qup"/>
+                                                                        <constraint firstAttribute="width" constant="40" id="rVp-h0-k8S"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstItem="QoV-TC-fdu" firstAttribute="centerY" secondItem="vnc-is-qSY" secondAttribute="centerY" id="AbW-rx-62y"/>
+                                                                <constraint firstItem="QoV-TC-fdu" firstAttribute="centerX" secondItem="vnc-is-qSY" secondAttribute="centerX" id="vw2-Ha-a9T"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1.5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="vnc-is-qSY" firstAttribute="top" secondItem="Ywp-Zh-Z0K" secondAttribute="top" id="aHK-sU-cZo"/>
+                                                        <constraint firstAttribute="trailing" secondItem="vnc-is-qSY" secondAttribute="trailing" id="gnN-t5-vWh"/>
+                                                        <constraint firstItem="vnc-is-qSY" firstAttribute="leading" secondItem="Ywp-Zh-Z0K" secondAttribute="leading" id="rZA-Hx-ajV"/>
+                                                        <constraint firstAttribute="bottom" secondItem="vnc-is-qSY" secondAttribute="bottom" id="y4D-3c-iZZ"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <size key="customSize" width="79" height="54"/>
+                                                <size key="customSize" width="70" height="60"/>
                                                 <connections>
                                                     <outlet property="cartImageView" destination="QoV-TC-fdu" id="pmA-vh-Usx"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
-                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="MV9-yM-gfV">
-                                            <rect key="frame" x="0.0" y="0.0" width="94" height="60"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oum-NZ-Zj4">
-                                                    <rect key="frame" x="29" y="19.5" width="36.5" height="21.5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="oum-NZ-Zj4" firstAttribute="centerY" secondItem="MV9-yM-gfV" secondAttribute="centerY" id="1Hn-hE-q3V"/>
-                                                <constraint firstItem="oum-NZ-Zj4" firstAttribute="centerX" secondItem="MV9-yM-gfV" secondAttribute="centerX" id="e5W-e1-JaI"/>
-                                            </constraints>
-                                        </collectionReusableView>
                                         <connections>
                                             <outlet property="dataSource" destination="6Ta-bd-k3D" id="VXf-kR-vXu"/>
                                             <outlet property="delegate" destination="6Ta-bd-k3D" id="kBY-le-GzJ"/>

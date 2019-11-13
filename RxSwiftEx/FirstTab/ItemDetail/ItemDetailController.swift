@@ -10,6 +10,7 @@ import UIKit
 
 class ItemDetailController: UIViewController {
     var item: PastaModel!
+    var delegate: ShoppingCartDelegate?
     
     @IBOutlet weak var itemImageView: UIImageView!
     
@@ -19,10 +20,13 @@ class ItemDetailController: UIViewController {
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var explainTextView: UITextView!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var stepper: UIStepper!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        stepper.value = 1.0
         itemImageView.image = item.image
         titleLabel.text = item.title
         weightLabel.text = item.weight
@@ -36,7 +40,7 @@ class ItemDetailController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 3.0, animations: {
+        UIView.animate(withDuration: 2.0, animations: {
             self.textContainerView.alpha = 1
         })
         
@@ -47,9 +51,18 @@ class ItemDetailController: UIViewController {
                                         self.textContainerView.transform = .identity
                                     })
         })
-        
     }
 
+    @IBAction func stepperTapped(_ sender: Any) {
+        let stepper = sender as! UIStepper
+        amountLabel.text = String(Int(stepper.value))
+    }
+    
+    @IBAction func addToCart(_ sender: Any) {
+        delegate?.addToCart(id: item.id, count: Int(stepper.value))
+        dismiss(animated: true)
+    }
+    
     @IBAction func dismissSelf(_ sender: Any) {
         dismiss(animated: true)
     }

@@ -66,17 +66,31 @@
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pi1-hy-III">
                                                         <rect key="frame" x="0.0" y="30" width="374" height="281"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                 </subviews>
                                             </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rh1-MD-pbH">
+                                                <rect key="frame" x="35" y="116.5" width="9.5" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                <color key="textColor" red="0.062745098040000002" green="0.65098039220000004" blue="0.71764705880000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="c23-Q1-27h">
+                                                <rect key="frame" x="64.5" y="112.5" width="94" height="32"/>
+                                                <connections>
+                                                    <action selector="stepperTapped:" destination="fQ3-ht-yqA" eventType="valueChanged" id="k31-I7-jpi"/>
+                                                </connections>
+                                            </stepper>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="omC-P3-f0G" secondAttribute="trailing" constant="20" id="2tE-aG-m0i"/>
+                                            <constraint firstItem="c23-Q1-27h" firstAttribute="leading" secondItem="Rh1-MD-pbH" secondAttribute="trailing" constant="20" id="3Ho-xb-SBR"/>
+                                            <constraint firstItem="Rh1-MD-pbH" firstAttribute="centerY" secondItem="omC-P3-f0G" secondAttribute="centerY" id="8gO-ui-UAu"/>
                                             <constraint firstItem="omC-P3-f0G" firstAttribute="top" secondItem="VWZ-8y-MHK" secondAttribute="bottom" constant="30" id="BrK-65-Akw"/>
                                             <constraint firstItem="NfA-eY-s8k" firstAttribute="leading" secondItem="VWZ-8y-MHK" secondAttribute="leading" id="C6Y-jG-42T"/>
                                             <constraint firstItem="gTi-6b-pdr" firstAttribute="leading" secondItem="y23-f8-znf" secondAttribute="leading" constant="20" id="CIk-M7-vR2"/>
@@ -85,6 +99,8 @@
                                             <constraint firstItem="VWZ-8y-MHK" firstAttribute="top" secondItem="gTi-6b-pdr" secondAttribute="bottom" constant="20" id="Mpz-CD-Sd6"/>
                                             <constraint firstItem="NfA-eY-s8k" firstAttribute="top" secondItem="omC-P3-f0G" secondAttribute="bottom" constant="20" id="a3r-M8-LeA"/>
                                             <constraint firstItem="NfA-eY-s8k" firstAttribute="trailing" secondItem="omC-P3-f0G" secondAttribute="trailing" id="df6-l3-fEM"/>
+                                            <constraint firstItem="Rh1-MD-pbH" firstAttribute="leading" secondItem="VWZ-8y-MHK" secondAttribute="leading" constant="15" id="flw-Qi-hA1"/>
+                                            <constraint firstItem="c23-Q1-27h" firstAttribute="centerY" secondItem="Rh1-MD-pbH" secondAttribute="centerY" id="gGH-PB-ygj"/>
                                             <constraint firstAttribute="bottom" secondItem="NfA-eY-s8k" secondAttribute="bottom" id="rdN-mL-u8M"/>
                                             <constraint firstItem="omC-P3-f0G" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="y23-f8-znf" secondAttribute="leading" constant="250" id="tQt-NY-jFa"/>
                                             <constraint firstItem="gTi-6b-pdr" firstAttribute="top" secondItem="y23-f8-znf" secondAttribute="top" constant="15" id="viW-0Q-fq4"/>
@@ -119,6 +135,9 @@
                                                         <real key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="addToCart:" destination="fQ3-ht-yqA" eventType="touchUpInside" id="lQL-WP-uV8"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8s-wi-WLI">
                                                 <rect key="frame" x="234" y="0.0" width="140" height="40"/>
@@ -165,9 +184,11 @@
                         <viewLayoutGuide key="safeArea" id="yqs-n9-BBG"/>
                     </view>
                     <connections>
+                        <outlet property="amountLabel" destination="Rh1-MD-pbH" id="Cps-xL-Neq"/>
                         <outlet property="explainTextView" destination="Pi1-hy-III" id="MyQ-9Y-jMX"/>
                         <outlet property="itemImageView" destination="J9g-JS-bKL" id="dJL-i0-FLw"/>
                         <outlet property="priceLabel" destination="omC-P3-f0G" id="vNH-ZM-Apa"/>
+                        <outlet property="stepper" destination="c23-Q1-27h" id="fqo-9G-WQF"/>
                         <outlet property="textContainerView" destination="y23-f8-znf" id="OXa-eW-vvm"/>
                         <outlet property="titleLabel" destination="gTi-6b-pdr" id="vPg-Ga-coU"/>
                         <outlet property="weightLabel" destination="VWZ-8y-MHK" id="MrB-TT-IwY"/>

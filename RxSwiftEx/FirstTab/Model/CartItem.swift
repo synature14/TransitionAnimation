@@ -23,12 +23,4 @@ class CartItem {
         let items = PastaModel.getItems()
         return items.filter { $0.id == id }.first!
     }
-    
-    func add() {
-        self.count += 1
-    }
-    
-    func abstract() {
-        self.count -= 1
-    }
 }

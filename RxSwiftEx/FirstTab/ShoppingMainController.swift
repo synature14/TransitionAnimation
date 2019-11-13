@@ -33,6 +33,10 @@ class ShoppingMainController: UIViewController {
         items = PastaModel.getItems()
         self.navigationController?.navigationItem.title = "Pasta"
         
+        if let layout = cartCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.minimumLineSpacing = 10
+            layout.sectionHeadersPinToVisibleBounds = true
+        }
     }
     
     static func create() -> ShoppingMainController {
@@ -42,9 +46,21 @@ class ShoppingMainController: UIViewController {
 }
 
 extension ShoppingMainController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView == cartCollectionView {
+            return 2
+        } else {
+            return 1
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == cartCollectionView {
-            return cartItems.count
+            if section == 0 {
+                return 1
+            } else {
+                return cartItems.count
+            }
         } else {
             return items.count
         }
@@ -52,10 +68,21 @@ extension ShoppingMainController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == cartCollectionView {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: indexPath) as? CartItemCell {
-                cell.setUI(cartItem: cartItems[indexPath.item])
+            let section = indexPath.section
+            
+            switch section {
+            case 0:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartTitleCell", for: indexPath) as! CartTitleCell
                 return cell
+            case 1:
+                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: indexPath) as? CartItemCell {
+                    cell.setUI(cartItem: cartItems[indexPath.item])
+                    return cell
+                }
+            default:
+                return UICollectionViewCell()
             }
+            
         } else {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as? ItemCell {
                 cell.setUI(item: items[indexPath.item])
@@ -67,15 +94,25 @@ extension ShoppingMainController: UICollectionViewDataSource {
     }
 }
 
+
 extension ShoppingMainController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ItemDetailController.create()
-        vc.item = items[indexPath.item]
-        self.selectedIndexPath = indexPath
-        vc.modalPresentationStyle = .fullScreen
-        vc.transitioningDelegate = self
+        if collectionView == self.collectionView {
+            let vc = ItemDetailController.create()
+            vc.item = items[indexPath.item]
+            self.selectedIndexPath = indexPath
+            vc.delegate = self
+            vc.modalPresentationStyle = .fullScreen
+            vc.transitioningDelegate = self
 
-        self.present(vc, animated: true, completion: nil)
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+}
+
+extension ShoppingMainController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 50, height: 45)
     }
 }
 
@@ -107,6 +144,13 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
 
 extension ShoppingMainController: ShoppingCartDelegate {
     func addToCart(id: String, count: Int) {
+        if let hasItem = cartItems.filter({ $0.id == id }).first {
+            hasItem.count = count
+        } else {
+            let cartItem = CartItem(id: id, count: count)
+            self.cartItems.append(cartItem)
+        }
         
+        cartCollectionView.reloadData()
     }
 }
