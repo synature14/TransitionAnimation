@@ -10,11 +10,17 @@
 import UIKit
 //import RxSwift
 
+protocol ShoppingCartDelegate {
+    func addToCart(id: String, count: Int)
+}
+
 class ShoppingMainController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var cartCollectionView: UICollectionView!
     
     var items: [PastaModel]!
+    var cartItems: [CartItem] = []
     let viewModel = ShoppingMainViewModel()
     
     var selectedIndexPath: IndexPath?
@@ -37,13 +43,24 @@ class ShoppingMainController: UIViewController {
 
 extension ShoppingMainController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        if collectionView == cartCollectionView {
+            return cartItems.count
+        } else {
+            return items.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as? ItemCell {
-            cell.setUI(item: items[indexPath.item])
-            return cell
+        if collectionView == cartCollectionView {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: indexPath) as? CartItemCell {
+                cell.setUI(cartItem: cartItems[indexPath.item])
+                return cell
+            }
+        } else {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as? ItemCell {
+                cell.setUI(item: items[indexPath.item])
+                return cell
+            }
         }
         
         return UICollectionViewCell()
@@ -85,6 +102,11 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
         }
         return nil
     }
-    
-    
+}
+
+
+extension ShoppingMainController: ShoppingCartDelegate {
+    func addToCart(id: String, count: Int) {
+        
+    }
 }
