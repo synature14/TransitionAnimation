@@ -47,22 +47,8 @@ private extension TransitionAnimator {
         containerView.addSubview(imageView)
         imageView.frame = originFrmae
         
-        // title
-        let titleLabel = UILabel()
-        titleLabel.backgroundColor = .clear
-        titleLabel.numberOfLines = 0
-        titleLabel.text = selectedItem.title
-        containerView.addSubview(titleLabel)
-        titleLabel.alpha = 0
-        titleLabel.frame = 
-        
-        
         toVC.view.alpha = 0
         transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        
-        
-        
-        
         
         UIView.animate(withDuration: 0.5, animations: {
             let toVCImageViewFrameOrigin = toVC.itemImageView.frame.origin

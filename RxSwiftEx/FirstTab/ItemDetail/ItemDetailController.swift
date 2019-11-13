@@ -29,7 +29,7 @@ class ItemDetailController: UIViewController {
         priceLabel.text = item.price
         explainTextView.text = item.explain
         
-        textContainerView.transform = CGAffineTransform(translationX: 0, y: textContainerView.frame.height)
+        textContainerView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height - textContainerView.frame.height - 30)
         textContainerView.alpha = 0
     }
     
@@ -39,10 +39,8 @@ class ItemDetailController: UIViewController {
         UIView.animate(withDuration: 0.2, delay: 0,
                        options: .curveEaseIn,
                        animations: {
-                        
                         self.textContainerView.transform = .identity
                         self.textContainerView.alpha = 1
-                        
         })
     }
 
