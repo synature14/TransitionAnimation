@@ -29,19 +29,25 @@ class ItemDetailController: UIViewController {
         priceLabel.text = item.price
         explainTextView.text = item.explain
         
-        textContainerView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height - textContainerView.frame.height - 30)
+        textContainerView.transform = CGAffineTransform(translationX: 0, y: self.view.frame.height - textContainerView.frame.height + 20)
         textContainerView.alpha = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        UIView.animate(withDuration: 0.2, delay: 0,
-                       options: .curveEaseIn,
-                       animations: {
-                        self.textContainerView.transform = .identity
-                        self.textContainerView.alpha = 1
+        UIView.animate(withDuration: 3.0, animations: {
+            self.textContainerView.alpha = 1
         })
+        
+        UIView.animateKeyframes(withDuration: 1.5,
+                                delay: 0,
+                                animations: {
+                                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
+                                        self.textContainerView.transform = .identity
+                                    })
+        })
+        
     }
 
     @IBAction func dismissSelf(_ sender: Any) {

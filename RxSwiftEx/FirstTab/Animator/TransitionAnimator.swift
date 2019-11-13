@@ -12,7 +12,7 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let duration = 0.8
     var isPresenting: Bool = true
-    var originFrmae: CGRect = .zero
+    var originFrame: CGRect = .zero
     var selectedItem: PastaModel!
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -45,17 +45,17 @@ private extension TransitionAnimator {
         containerView.backgroundColor = .white
         containerView.addSubview(toVC.view)
         containerView.addSubview(imageView)
-        imageView.frame = originFrmae
+        imageView.frame = originFrame
         
         toVC.view.alpha = 0
         transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         
         UIView.animate(withDuration: 0.5, animations: {
             let toVCImageViewFrameOrigin = toVC.itemImageView.frame.origin
-            imageView.frame.origin = CGPoint(x: toVCImageViewFrameOrigin.x + (toVC.itemImageView.frame.width / 4), y: toVCImageViewFrameOrigin.x + 50)
+            imageView.frame.origin = CGPoint(x: toVCImageViewFrameOrigin.x + (toVC.itemImageView.frame.width / 4) - 5 , y: toVCImageViewFrameOrigin.y + 55)
         }) { _ in
-            UIView.animate(withDuration: 0.25, animations: {
-                
+            UIView.animate(withDuration: 0.5, animations: {
+                imageView.bounds = toVC.itemImageView.bounds
             }) { _ in
                 toVC.view.alpha = 1
                 imageView.removeFromSuperview()
