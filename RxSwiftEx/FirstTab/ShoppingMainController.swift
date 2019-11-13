@@ -26,6 +26,7 @@ class ShoppingMainController: UIViewController {
     var selectedIndexPath: IndexPath?
     
     let transition = TransitionAnimator()
+    var itemDetailVCImageViewFrame: CGRect = .zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +101,8 @@ extension ShoppingMainController: UICollectionViewDelegate {
         if collectionView == self.collectionView {
             let vc = ItemDetailController.create()
             vc.item = items[indexPath.item]
+            
+//            self.itemDetailVCImageViewFrame = vc.itemImageView.frame
             self.selectedIndexPath = indexPath
             vc.delegate = self
             vc.modalPresentationStyle = .fullScreen
@@ -134,6 +137,18 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if let _ = dismissed as? ItemDetailController {
+            
+            
+            let nextIndexPath = cartItems.count == 0 ? IndexPath(item: 0, section: 1) : IndexPath(item: cartItems.count - 1, section: 1)
+            guard let cartItemCell = cartCollectionView.cellForItem(at: nextIndexPath),
+                let selectedIndexPath = selectedIndexPath,
+                let selectedCell = collectionView.cellForItem(at: selectedIndexPath) as? ItemCell else {
+                return nil
+            }
+            
+            transition.lastIndexPath = nextIndexPath
+            transition.originFrame = selectedCell.frame
+            transition.destinationCartCellFrame = cartItemCell.frame
             transition.isPresenting = false
             return transition
         }

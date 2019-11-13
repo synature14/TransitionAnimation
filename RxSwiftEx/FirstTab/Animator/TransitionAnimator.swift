@@ -13,7 +13,11 @@ class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let duration = 0.8
     var isPresenting: Bool = true
     var originFrame: CGRect = .zero
+    var destinationCartCellFrame: CGRect = .zero        // CartItem보여줄 collectionView의 cell
+    var lastIndexPath: IndexPath?
+    
     var selectedItem: PastaModel!
+
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
@@ -65,6 +69,30 @@ private extension TransitionAnimator {
     }
     
     func animateDismissMode(using transitionContext: UIViewControllerContextTransitioning) {
-        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        guard let fromVC = transitionContext.viewController(forKey: .from) as? ItemDetailController,
+            let toVC = transitionContext.viewController(forKey: .to) as? ShoppingMainController,
+            let lastCell = toVC.collectionView.cellForItem(at: lastIndexPath!) as? CartItemCell else {
+            return
+        }
+        
+        // 이미지
+        let imageView = UIImageView(image: selectedItem.image)
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFit
+        
+        let containerView = transitionContext.containerView
+        containerView.addSubview(fromVC.itemImageView)
+        imageView.frame = originFrame
+        
+        // CartCollectionView
+        lastCell.cartImageView.alpha = 0
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            imageView.frame = self.destinationCartCellFrame
+        }) { _ in
+            lastCell.cartImageView.alpha = 1
+            imageView.removeFromSuperview()
+            transitionContext.completeTransition(transitionContext.transitionWasCancelled)
+        }
     }
 }
