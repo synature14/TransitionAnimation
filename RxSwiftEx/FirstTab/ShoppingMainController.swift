@@ -11,13 +11,15 @@ import UIKit
 //import RxSwift
 
 protocol ShoppingCartDelegate {
-    func addToCart(id: String, count: Int)
+    func addToCart(id: String, count: Int, itemImageViewBounds: CGRect)
+    func dismiss(_ bool: Bool)
 }
 
 class ShoppingMainController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var cartCollectionView: UICollectionView!
+    @IBOutlet weak var cartCollectionView: CartItemCollectionView!
+    
     
     var items: [PastaModel]!
     var cartItems: [CartItem] = []
@@ -27,6 +29,8 @@ class ShoppingMainController: UIViewController {
     
     let transition = TransitionAnimator()
     var itemDetailVCImageViewFrame: CGRect = .zero
+    var cartCollectionViewLineSpacing: CGFloat = 0.0
+    var itemImageViewBounds: CGRect = .zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +40,7 @@ class ShoppingMainController: UIViewController {
         
         if let layout = cartCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 10
-            layout.sectionHeadersPinToVisibleBounds = true
+            self.cartCollectionViewLineSpacing = layout.minimumLineSpacing
         }
     }
     
@@ -47,21 +51,9 @@ class ShoppingMainController: UIViewController {
 }
 
 extension ShoppingMainController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == cartCollectionView {
-            return 2
-        } else {
-            return 1
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == cartCollectionView {
-            if section == 0 {
-                return 1
-            } else {
-                return cartItems.count
-            }
+            return cartItems.count
         } else {
             return items.count
         }
@@ -69,21 +61,11 @@ extension ShoppingMainController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == cartCollectionView {
-            let section = indexPath.section
-            
-            switch section {
-            case 0:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartTitleCell", for: indexPath) as! CartTitleCell
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: indexPath) as? CartItemCell {
+                cell.setUI(cartItem: cartItems[indexPath.item])
                 return cell
-            case 1:
-                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: indexPath) as? CartItemCell {
-                    cell.setUI(cartItem: cartItems[indexPath.item])
-                    return cell
-                }
-            default:
-                return UICollectionViewCell()
             }
-            
+           
         } else {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as? ItemCell {
                 cell.setUI(item: items[indexPath.item])
@@ -102,7 +84,6 @@ extension ShoppingMainController: UICollectionViewDelegate {
             let vc = ItemDetailController.create()
             vc.item = items[indexPath.item]
             
-//            self.itemDetailVCImageViewFrame = vc.itemImageView.frame
             self.selectedIndexPath = indexPath
             vc.delegate = self
             vc.modalPresentationStyle = .fullScreen
@@ -138,17 +119,13 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if let _ = dismissed as? ItemDetailController {
             
-            
-            let nextIndexPath = cartItems.count == 0 ? IndexPath(item: 0, section: 1) : IndexPath(item: cartItems.count - 1, section: 1)
-            guard let cartItemCell = cartCollectionView.cellForItem(at: nextIndexPath),
-                let selectedIndexPath = selectedIndexPath,
-                let selectedCell = collectionView.cellForItem(at: selectedIndexPath) as? ItemCell else {
+            let lastIndexPath = IndexPath(item: cartItems.count - 1, section: 0)
+            guard let cell = cartCollectionView.cellForItem(at: lastIndexPath) as? CartItemCell else {
                 return nil
             }
             
-            transition.lastIndexPath = nextIndexPath
-            transition.originFrame = selectedCell.frame
-            transition.destinationCartCellFrame = cartItemCell.frame
+            transition.originFrame = itemImageViewBounds
+            transition.destinationCartCellFrame = cell.convert(cell.bounds, to: self.view)
             transition.isPresenting = false
             return transition
         }
@@ -158,14 +135,21 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
 
 
 extension ShoppingMainController: ShoppingCartDelegate {
-    func addToCart(id: String, count: Int) {
+    func dismiss(_ bool: Bool) {
+        let itemVC = self.presentedViewController as? ItemDetailController
+        itemVC?.dismiss(animated: true)
+    }
+    
+    func addToCart(id: String, count: Int, itemImageViewBounds: CGRect) {
         if let hasItem = cartItems.filter({ $0.id == id }).first {
             hasItem.count = count
         } else {
             let cartItem = CartItem(id: id, count: count)
             self.cartItems.append(cartItem)
         }
-        
-        cartCollectionView.reloadData()
+        self.itemImageViewBounds = itemImageViewBounds
+        cartCollectionView.reloadDataWithCompletion {
+            print("[[[[[[[[  cartCollectionView RELOAD Data Completion..   ]]]]]]")
+        }
     }
 }

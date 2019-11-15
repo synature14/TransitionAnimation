@@ -124,8 +124,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jku-aq-Rs4">
                                 <rect key="frame" x="0.0" y="802" width="414" height="60"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RQL-f1-a7j">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1x-Wa-NH2">
+                                        <rect key="frame" x="20" y="18" width="40" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Ai9-Fi-i5e"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RQL-f1-a7j" customClass="CartItemCollectionView" customModule="RxSwiftEx" customModuleProvider="target">
+                                        <rect key="frame" x="75" y="0.0" width="339" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="LCw-c5-9Bk">
                                             <size key="itemSize" width="79" height="54"/>
@@ -134,30 +143,8 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CartTitleCell" id="KpA-ar-DeE" customClass="CartTitleCell" customModule="RxSwiftEx" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="3" width="75.5" height="54"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="IlE-tU-YNJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="75.5" height="54"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T1x-Wa-NH2">
-                                                            <rect key="frame" x="18" y="15" width="39.5" height="24"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="top" secondItem="IlE-tU-YNJ" secondAttribute="top" constant="15" id="CF6-dM-5ZS"/>
-                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="leading" secondItem="IlE-tU-YNJ" secondAttribute="leading" constant="18" id="gba-v4-afk"/>
-                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="centerY" secondItem="IlE-tU-YNJ" secondAttribute="centerY" id="qiC-2h-Fhq"/>
-                                                        <constraint firstItem="T1x-Wa-NH2" firstAttribute="centerX" secondItem="IlE-tU-YNJ" secondAttribute="centerX" id="vPk-dK-yoi"/>
-                                                    </constraints>
-                                                </collectionViewCellContentView>
-                                            </collectionViewCell>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CartItemCell" id="JpU-Fd-RDs" customClass="CartItemCell" customModule="RxSwiftEx" customModuleProvider="target">
-                                                <rect key="frame" x="75.5" y="0.0" width="70" height="60"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ywp-Zh-Z0K">
                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
@@ -216,9 +203,11 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="RQL-f1-a7j" secondAttribute="bottom" id="3Vs-Zg-oJY"/>
-                                    <constraint firstItem="RQL-f1-a7j" firstAttribute="leading" secondItem="jku-aq-Rs4" secondAttribute="leading" id="A79-Uk-dk3"/>
                                     <constraint firstAttribute="height" constant="60" id="Ta9-Bf-dzw"/>
+                                    <constraint firstItem="RQL-f1-a7j" firstAttribute="leading" secondItem="T1x-Wa-NH2" secondAttribute="trailing" constant="15" id="WqQ-ds-hCE"/>
                                     <constraint firstAttribute="trailing" secondItem="RQL-f1-a7j" secondAttribute="trailing" id="eLM-MF-C7d"/>
+                                    <constraint firstItem="T1x-Wa-NH2" firstAttribute="leading" secondItem="jku-aq-Rs4" secondAttribute="leading" constant="20" id="ljV-Y9-DWv"/>
+                                    <constraint firstItem="T1x-Wa-NH2" firstAttribute="centerY" secondItem="jku-aq-Rs4" secondAttribute="centerY" id="n8D-Gh-ai4"/>
                                     <constraint firstItem="RQL-f1-a7j" firstAttribute="top" secondItem="jku-aq-Rs4" secondAttribute="top" id="xBs-SH-WPT"/>
                                 </constraints>
                             </view>
@@ -237,7 +226,7 @@
                         <viewLayoutGuide key="safeArea" id="f8e-b3-lEE"/>
                     </view>
                     <connections>
-                        <outlet property="cartCollectionView" destination="RQL-f1-a7j" id="VlP-SU-Ieu"/>
+                        <outlet property="cartCollectionView" destination="RQL-f1-a7j" id="xy1-SO-czU"/>
                         <outlet property="collectionView" destination="1O2-Wc-pGt" id="4XZ-sw-gJP"/>
                     </connections>
                 </viewController>

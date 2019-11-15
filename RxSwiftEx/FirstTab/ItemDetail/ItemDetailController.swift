@@ -59,11 +59,12 @@ class ItemDetailController: UIViewController {
     }
     
     @IBAction func addToCart(_ sender: Any) {
-        delegate?.addToCart(id: item.id, count: Int(stepper.value))
-        dismiss(animated: true)
+        delegate?.addToCart(id: item.id, count: Int(stepper.value), itemImageViewBounds: itemImageView.bounds)
+        delegate?.dismiss(true)
     }
     
     @IBAction func dismissSelf(_ sender: Any) {
+        self.transitioningDelegate = self as? UIViewControllerTransitioningDelegate
         dismiss(animated: true)
     }
     

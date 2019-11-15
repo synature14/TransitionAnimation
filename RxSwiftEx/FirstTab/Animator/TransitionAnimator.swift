@@ -70,8 +70,8 @@ private extension TransitionAnimator {
     
     func animateDismissMode(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = transitionContext.viewController(forKey: .from) as? ItemDetailController,
-            let toVC = transitionContext.viewController(forKey: .to) as? ShoppingMainController,
-            let lastCell = toVC.collectionView.cellForItem(at: lastIndexPath!) as? CartItemCell else {
+            let rootVC = transitionContext.viewController(forKey: .to)?.children[0] as? RootViewController,     // rootVC.firstTab가 toVC임
+            let lastCell = rootVC.firstTab.cartCollectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: lastIndexPath!) as? CartItemCell else {
             return
         }
         
@@ -88,7 +88,7 @@ private extension TransitionAnimator {
         lastCell.cartImageView.alpha = 0
         
         UIView.animate(withDuration: 1.0, animations: {
-            imageView.frame = self.destinationCartCellFrame
+            imageView.frame = self.destinationCartCellFrame  //////////////
         }) { _ in
             lastCell.cartImageView.alpha = 1
             imageView.removeFromSuperview()
