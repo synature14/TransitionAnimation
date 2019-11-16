@@ -63,15 +63,15 @@ private extension TransitionAnimator {
             }) { _ in
                 toVC.view.alpha = 1
                 imageView.removeFromSuperview()
-                transitionContext.completeTransition(transitionContext.transitionWasCancelled)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
         }
     }
     
     func animateDismissMode(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromVC = transitionContext.viewController(forKey: .from) as? ItemDetailController,
-            let rootVC = transitionContext.viewController(forKey: .to)?.children[0] as? RootViewController,     // rootVC.firstTab가 toVC임
-            let lastCell = rootVC.firstTab.cartCollectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: lastIndexPath!) as? CartItemCell else {
+        guard
+            let toVC = transitionContext.viewController(forKey: .to),
+            let fromVC = transitionContext.viewController(forKey: .from) as? ItemDetailController else {
             return
         }
         
@@ -81,18 +81,19 @@ private extension TransitionAnimator {
         imageView.contentMode = .scaleAspectFit
         
         let containerView = transitionContext.containerView
-        containerView.addSubview(fromVC.itemImageView)
+        toVC.view.alpha = 0
+        containerView.addSubview(toVC.view)
+        
+        containerView.addSubview(imageView)
         imageView.frame = originFrame
         
-        // CartCollectionView
-        lastCell.cartImageView.alpha = 0
-        
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: 2, animations: {
             imageView.frame = self.destinationCartCellFrame  //////////////
+            toVC.view.alpha = 1
+            fromVC.view.alpha = 0
         }) { _ in
-            lastCell.cartImageView.alpha = 1
             imageView.removeFromSuperview()
-            transitionContext.completeTransition(transitionContext.transitionWasCancelled)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
 }

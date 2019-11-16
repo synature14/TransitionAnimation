@@ -11,7 +11,7 @@ import UIKit
 //import RxSwift
 
 protocol ShoppingCartDelegate {
-    func addToCart(id: String, count: Int, itemImageViewBounds: CGRect)
+    func addToCart(id: String, count: Int, itemImageViewFrame: CGRect)
     func dismiss(_ bool: Bool)
 }
 
@@ -19,7 +19,7 @@ class ShoppingMainController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var cartCollectionView: CartItemCollectionView!
-    
+    @IBOutlet weak var containerView: UIView!
     
     var items: [PastaModel]!
     var cartItems: [CartItem] = []
@@ -30,7 +30,7 @@ class ShoppingMainController: UIViewController {
     let transition = TransitionAnimator()
     var itemDetailVCImageViewFrame: CGRect = .zero
     var cartCollectionViewLineSpacing: CGFloat = 0.0
-    var itemImageViewBounds: CGRect = .zero
+    var itemImageViewFrame: CGRect = .zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +92,12 @@ extension ShoppingMainController: UICollectionViewDelegate {
             self.present(vc, animated: true, completion: nil)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        if collectionView == cartCollectionView {
+//            cell.alpha = 0
+//        }
+    }
 }
 
 extension ShoppingMainController: UICollectionViewDelegateFlowLayout {
@@ -120,15 +126,23 @@ extension ShoppingMainController: UIViewControllerTransitioningDelegate {
         if let _ = dismissed as? ItemDetailController {
             
             let lastIndexPath = IndexPath(item: cartItems.count - 1, section: 0)
-            guard let cell = cartCollectionView.cellForItem(at: lastIndexPath) as? CartItemCell else {
+            guard let cellAttribute = cartCollectionView.layoutAttributesForItem(at: lastIndexPath),
+                let cell = cartCollectionView.dequeueReusableCell(withReuseIdentifier: "CartItemCell", for: lastIndexPath) as? CartItemCell else {
                 return nil
             }
             
-            transition.originFrame = itemImageViewBounds
-            transition.destinationCartCellFrame = cell.convert(cell.bounds, to: self.view)
+            transition.originFrame = itemImageViewFrame
+            // collectionView의 frame + cell의 frame
+            let combinedFrameX = containerView.frame.origin.x + cartCollectionView.frame.origin.x + cellAttribute.frame.origin.x
+            let combinedFrameY = containerView.frame.origin.y + cartCollectionView.frame.origin.y + cellAttribute.frame.origin.y
+            let cellFrameToSuperView = CGRect(x: combinedFrameX, y: combinedFrameY,
+                                              width: cellAttribute.frame.width, height: cellAttribute.frame.height)
+            
+            transition.destinationCartCellFrame = cellFrameToSuperView
             transition.isPresenting = false
             return transition
         }
+        
         return nil
     }
 }
@@ -140,16 +154,14 @@ extension ShoppingMainController: ShoppingCartDelegate {
         itemVC?.dismiss(animated: true)
     }
     
-    func addToCart(id: String, count: Int, itemImageViewBounds: CGRect) {
+    func addToCart(id: String, count: Int, itemImageViewFrame: CGRect) {
         if let hasItem = cartItems.filter({ $0.id == id }).first {
             hasItem.count = count
         } else {
             let cartItem = CartItem(id: id, count: count)
             self.cartItems.append(cartItem)
         }
-        self.itemImageViewBounds = itemImageViewBounds
-        cartCollectionView.reloadDataWithCompletion {
-            print("[[[[[[[[  cartCollectionView RELOAD Data Completion..   ]]]]]]")
-        }
+        self.itemImageViewFrame = itemImageViewFrame
+        cartCollectionView.reloadData()
     }
 }
