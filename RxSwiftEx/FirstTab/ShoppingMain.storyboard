@@ -124,6 +124,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="1O2-Wc-pGt" firstAttribute="width" secondItem="qxz-OR-Byx" secondAttribute="width" id="Sgi-k0-FVN"/>
                             <constraint firstItem="1O2-Wc-pGt" firstAttribute="top" secondItem="f8e-b3-lEE" secondAttribute="top" id="d2W-64-4RW"/>
                             <constraint firstItem="f8e-b3-lEE" firstAttribute="bottom" secondItem="1O2-Wc-pGt" secondAttribute="bottom" id="eZ1-jj-jQ4"/>
                             <constraint firstItem="1O2-Wc-pGt" firstAttribute="leading" secondItem="f8e-b3-lEE" secondAttribute="leading" id="ghH-rY-FDV"/>
